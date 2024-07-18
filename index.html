@@ -18,18 +18,45 @@
       const allData = Array.from({ length: 40 }, () =>
         Math.floor(Math.random() * 40)
       );
+
       function App() {
-        const [currentList, setCurrentList] = React.useState(allData);
+        const [currentList, setCurrentList] = React.useState(allData);// Use State Hooks is used 
+
+        // Function to handle sorting
+        const handleSort = () => {
+          const sortedData = [...currentList].sort((a, b) => a - b);
+          setCurrentList(sortedData);
+        };
+
+        // Function to handle filtering odd numbers 
+        const handleFilterOdd = () => {
+          const filteredData = currentList.filter((item) => item % 2 === 0);
+          setCurrentList(filteredData);
+        };
+
         return (
           <>
             <div style={{ display: "flex" }}>
-              <button style={{ width: "100px", height: "100px" }}>Sort</button>
-              <button style={{ width: "100px", height: "100px" }}>
+              <button
+                style={{ width: "100px", height: "100px" }}
+                onClick={handleSort} 
+              >
+                Sort
+              </button>
+              <button
+                style={{ width: "100px", height: "100px" }}
+                onClick={handleFilterOdd} // Fixed: added '=' and '{}' for onClick
+              >
                 Filter Odd Numbers
+              </button>
+              <button
+                style={{ marginLeft: "10px", padding: "8px" }}
+                
+              >
               </button>
             </div>
             {currentList.map((item, index) => (
-              <div key={index}> {item.toString()} </div>
+              <div key={index}>{item.toString()}</div>
             ))}
           </>
         );
